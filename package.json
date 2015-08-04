@@ -1,0 +1,26 @@
+{
+  "name": "lab-teamcity-reporter",
+  "version": "1.0.0",
+  "description": "Lab reporter for TeamCity",
+  "main": "/src/teamcity.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antipin/lab-teamcity-reporter.git"
+  },
+  "keywords": [
+    "lab",
+    "hapijs",
+    "teamcity",
+    "reporter",
+    "test"
+  ],
+  "author": "Alexander I. Antipin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/antipin/lab-teamcity-reporter/issues"
+  },
+  "homepage": "https://github.com/antipin/lab-teamcity-reporter#readme"
+}

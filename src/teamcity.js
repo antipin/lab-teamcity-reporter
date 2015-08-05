@@ -33,18 +33,18 @@ internals.Reporter.prototype.test = function (test) {
 
         if (this.previousSuiteTitle) {
 
-            tsm.testSuiteFinished({ name: this.previousSuiteTitle });
+            this.log('testSuiteFinished', { name: this.previousSuiteTitle });
         }
 
         this.previousSuiteTitle = suiteTitle;
 
-        tsm.testSuiteStarted({ name: suiteTitle });
+        this.log('testSuiteStarted', { name: suiteTitle });
     }
 
-    tsm.testStarted({ name: test.relativeTitle, captureStandardOutput: true });
+    this.log('testStarted', { name: test.relativeTitle, captureStandardOutput: true });
 
     if (test.err) {
-        tsm.testFailed({
+        this.log('testFailed', {
             name: test.relativeTitle,
             messge: test.err.message,
             details: test.err.stack,
@@ -56,11 +56,11 @@ internals.Reporter.prototype.test = function (test) {
 
         skippedMessage = test.todo ? 'no callback provided' : 'test skipped';
 
-        tsm.testIgnored({ name: test.relativeTitle, message: skippedMessage });
+        this.log('testIgnored', { name: test.relativeTitle, message: skippedMessage });
 
     } else {
 
-        tsm.testFinished({ name: test.relativeTitle, duration: test.duration });
+        this.log('testFinished', { name: test.relativeTitle, duration: test.duration });
     }
 };
 
@@ -72,6 +72,16 @@ internals.Reporter.prototype.end = function (notebook) {
 
     if (this.previousSuiteTitle) {
 
-        tsm.testSuiteFinished({ name: this.previousSuiteTitle });
+        this.log('testSuiteFinished', { name: this.previousSuiteTitle });
     }
+};
+
+/**
+ *
+ * @param {string} message
+ * @param {Object} args Message arguments
+ * @returns {string}
+ */
+internals.Reporter.prototype.log = function(message, args) {
+    this.report(new tsm.Message(message, args).toString() + '\n');
 };

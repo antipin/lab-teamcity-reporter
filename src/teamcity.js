@@ -1,4 +1,4 @@
-var SUITES_DELIMITER = ' -> ',
+var SUITE_TITLE_DELIMITER = ' -> ',
     internals = {};
 
 /**
@@ -25,7 +25,7 @@ internals.Reporter.prototype.start = function (notebook) {
  */
 internals.Reporter.prototype.test = function (test) {
 
-    var suiteTitle = test.path.join(SUITES_DELIMITER),
+    var suiteTitle = test.path.join(SUITE_TITLE_DELIMITER),
         skippedMessage;
 
     if (this.previousSuiteTitle !== suiteTitle) {
@@ -92,7 +92,7 @@ internals.Reporter.prototype.log = function(title, params) {
 
 /**
  * @param {string} value
- * @returns {string} escaped string
+ * @returns {string} Escaped string
  */
 internals.Reporter.prototype.escapeString = function(value) {
 

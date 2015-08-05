@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/antipin/lab-teamcity-reporter/issues"
   },
-  "homepage": "https://github.com/antipin/lab-teamcity-reporter#readme"
+  "homepage": "https://github.com/antipin/lab-teamcity-reporter#readme",
+  "dependencies": {
+    "teamcity-service-messages": "^0.1.6"
+  }
 }

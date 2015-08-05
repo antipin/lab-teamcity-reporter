@@ -14,7 +14,7 @@
 
 ![Output example](http://antip.in/f/ycan6.png)
 
-##Caveats
+## Caveats
 
 If your lab test runner fails with error ```Error: Cannot find module 'lab-teamcity-reporter'``` you can try to use full path to the reporter:
 

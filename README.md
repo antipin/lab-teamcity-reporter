@@ -7,3 +7,6 @@
 
 ## Usage
 ```lab --reporter lab-teamcity-reporter```
+
+## Output example
+![Output example](http://antip.in/f/ycan6.png)

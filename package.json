@@ -1,6 +1,6 @@
 {
   "name": "lab-teamcity-reporter",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Lab reporter for TeamCity",
   "main": "/src/teamcity.js",
   "scripts": {

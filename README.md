@@ -1,6 +1,8 @@
 # Lab TeamCity reporter
 
-[Lab](https://github.com/hapijs/lab) reporter for [TeamCity](https://www.jetbrains.com/teamcity/)
+[lab](https://github.com/hapijs/lab) and [TeamCity](https://www.jetbrains.com/teamcity/) are [hapi](https://github.com/hapijs/hapi) together.
+
+![lab and TeamCity](http://antip.in/f/lab_plus_teamcity.png)
 
 ## Install
 

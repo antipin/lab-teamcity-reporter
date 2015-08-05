@@ -10,3 +10,8 @@
 
 ## Output example
 ![Output example](http://antip.in/f/ycan6.png)
+
+##Caveats
+If your lab test runner fails with error ```Error: Cannot find module 'lab-teamcity-reporter'``` you can try to use full path to the reporter:
+
+```lab --reporter ./node_modules/lab-teamcity-reporter/src/teamcity.js```

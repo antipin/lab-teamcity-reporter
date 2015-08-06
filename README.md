@@ -1,6 +1,8 @@
 # Lab TeamCity reporter
 
 [![Build Status](https://travis-ci.org/antipin/lab-teamcity-reporter.svg?branch=master)](https://travis-ci.org/antipin/lab-teamcity-reporter)
+[![Dependencies Status](https://david-dm.org/antipin/lab-teamcity-reporter.svg)](https://david-dm.org/antipin/lab-teamcity-reporter)
+[![DevDependencies Status](https://david-dm.org/antipin/lab-teamcity-reporter/dev-status.svg)](https://david-dm.org/antipin/lab-teamcity-reporter#info=devDependencies)
 
 [lab](https://github.com/hapijs/lab) and [TeamCity](https://www.jetbrains.com/teamcity/) are [hapi](https://github.com/hapijs/hapi) together.
 

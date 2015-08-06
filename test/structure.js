@@ -42,6 +42,9 @@ describe('Report structure', function() {
                 var latestSuitesStackItem = suitesStack[suitesStack.length - 1];
 
                 if (latestSuitesStackItem === utils.getMessageAttr('name', message)) {
+
+                    expect(suitesStack.length).to.be.above(0);
+
                     suitesStack.pop();
                 }
             }
@@ -68,6 +71,9 @@ describe('Report structure', function() {
                 var latestMessagesStackItem = messagesStack[messagesStack.length - 1];
 
                 if (latestMessagesStackItem === utils.getMessageAttr('name', message)) {
+
+                    expect(messagesStack.length).to.be.above(0);
+
                     messagesStack.pop();
                 }
             }

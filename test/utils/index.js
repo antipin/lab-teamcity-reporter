@@ -1,5 +1,11 @@
 var Lab = require('lab');
 
+/**
+ *
+ * @param {Object} script
+ * @param {Object} [settings]
+ * @param {Function} callback
+ */
 exports.getReport = function prepareScript(script, settings, callback) {
 
     callback = (typeof settings === 'function') ? settings : callback;
@@ -14,8 +20,6 @@ exports.getReport = function prepareScript(script, settings, callback) {
         var messages = output.split('\n').filter(function(message) {
             return (message.length > 0);
         });
-
-        //console.log(output);
 
         callback({
             raw: output,

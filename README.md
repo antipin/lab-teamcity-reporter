@@ -14,7 +14,13 @@
 
 ## Output example
 
-![Output example](http://antip.in/f/ycan6.png)
+### Build log
+
+![Build log](http://antip.in/f/lvmh6.png)
+
+### Build overview
+
+![Build overview](http://antip.in/f/b01l2.png)
 
 ## Caveats
 

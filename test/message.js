@@ -15,7 +15,7 @@ var Lab       = require('lab'),
 describe('Report messages', function() {
 
     before(function(done) {
-        utils.getReport(require('./inputs/with-fails').lab, function(result) {
+        utils.getReport(require('./data-sets/with-fails').lab, function(result) {
             reportRaw = result.raw;
             reportMessages = result.messages;
             done();
@@ -95,14 +95,12 @@ describe('Report messages', function() {
 describe('Report skipped messages', function() {
 
     before(function(done) {
-        utils.getReport(require('./inputs/with-no-todo').lab, { dry: true }, function(result) {
+        utils.getReport(require('./data-sets/with-no-todo').lab, { dry: true }, function(result) {
             reportRaw = result.raw;
             reportMessages = result.messages;
             done();
         });
     });
-
-    //testIgnored name='2. should fail' message='test skipped'
 
     it('every test should be skipped when running in --dry mode', function(done) {
         var startedMessages = reportMessages.filter(function(message) {

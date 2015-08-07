@@ -8,88 +8,100 @@ var Lab       = require('lab'),
     it        = lab.it,
     expect    = Code.expect,
 
+    dataSets  = require('./data-sets').getDataSetsByTags('settings'),
+
     utils = require('./utils'),
     suiteDelimiter = ' ~ ',
     testScript,
     reportMessages,
     reportRaw,
-    experimentsPaths;
+    experimentsPaths,
+    settingsSets = [
+        {
+            params: {
+                nestedSuiteTitle: true,
+                suiteTitleDelimiter: suiteDelimiter
+            },
+            utils: {
+                getCorrespondentTitles: function(experimentsPaths) {
+                    return experimentsPaths.map(function(experimentPath) {
+                        return experimentPath.join(suiteDelimiter);
+                    });
+                }
+            }
+        },
+        {
+            params: {
+                nestedSuiteTitle: false
+            },
+            utils: {
+                getCorrespondentTitles: function(experimentsPaths) {
+                    return experimentsPaths.map(function(experimentPath) {
+                        return experimentPath[experimentPath.length - 1];
+                    });
+                }
+            }
+        }
+    ];
 
-describe('Report settings', function() {
+describe('Report settings.', function() {
 
     describe('Nested experiment titles and delimites', function() {
 
-        before(function(done) {
+        // Running tests on various data sets
+        dataSets.forEach(function(dataSet) {
 
-            testScript = require('./inputs/deeply-nested').lab;
+            describe('Data set: `' + dataSet.name + '`.', function() {
 
-            experimentsPaths = utils.getExperimentsPaths(testScript._root.experiments);
+                // Running tests on various settings
+                settingsSets.forEach(function(settingsSet) {
 
-            utils.getReport(testScript, { nestedSuiteTitle: true, suiteTitleDelimiter: suiteDelimiter }, function(result) {
-                reportRaw = result.raw;
-                reportMessages = result.messages;
-                done();
+                    var checkTitles = function(done) {
+
+                        var experimentsTitles = settingsSet.utils.getCorrespondentTitles(experimentsPaths);
+
+                        reportMessages.forEach(function(message) {
+                            if (utils.getMessageName(message) === 'testSuiteStarted') {
+
+                                var messageName = utils.getMessageAttr('name', message);
+
+                                if (messageName) {
+                                    var expectedMessageName = experimentsTitles.shift();
+                                    expect(messageName).to.be.equal(expectedMessageName);
+                                }
+                            }
+                        });
+
+                        done();
+                    };
+
+                    describe('Settings: `' + JSON.stringify(settingsSet.params) + '`.', function() {
+
+                        before(function(done) {
+
+                            testScript = require(dataSet.path).lab;
+
+                            experimentsPaths = utils.getExperimentsPaths(testScript._root.experiments);
+
+                            utils.getReport(testScript, settingsSet.params, function(result) {
+                                reportRaw = result.raw;
+                                reportMessages = result.messages;
+                                done();
+                            });
+                        });
+
+                        if (settingsSet.params.nestedSuiteTitle) {
+
+                            it('should output nested titles if option `nestedSuiteTitle` is true', checkTitles);
+
+                        } else {
+
+                            it('should output not nested titles if option `nestedSuiteTitle` is false', checkTitles);
+                        }
+
+                    });
+                });
             });
-        });
-
-        it('should output nested titles if option `nestedSuiteTitle` is true', function(done) {
-
-            var experimentsTitles = experimentsPaths.map(function(experimentPath) {
-                return experimentPath.join(suiteDelimiter);
-            });
-
-            reportMessages.forEach(function(message) {
-                if (utils.getMessageName(message) === 'testSuiteStarted') {
-
-                    var messageName = utils.getMessageAttr('name', message);
-
-                    if (messageName) {
-                        var expectedMessageName = experimentsTitles.shift();
-                        expect(messageName).to.be.equal(expectedMessageName);
-                    }
-                }
-            });
-
-            done();
         });
     });
-
-    describe('Not nested experiment titles', function() {
-
-        before(function(done) {
-
-            testScript = require('./inputs/deeply-nested').lab;
-
-            experimentsPaths = utils.getExperimentsPaths(testScript._root.experiments);
-
-            utils.getReport(testScript, { nestedSuiteTitle: false }, function(result) {
-                reportRaw = result.raw;
-                reportMessages = result.messages;
-                done();
-            });
-        });
-
-        it('should output not nested titles if option `nestedSuiteTitle` is false', function(done) {
-
-            var experimentsTitles = experimentsPaths.map(function(experimentPath) {
-                return experimentPath[experimentPath.length - 1];
-            });
-
-            reportMessages.forEach(function(message) {
-                if (utils.getMessageName(message) === 'testSuiteStarted') {
-
-                    var messageName = utils.getMessageAttr('name', message);
-
-                    if (messageName) {
-                        var expectedMessageName = experimentsTitles.shift();
-                        expect(messageName).to.be.equal(expectedMessageName);
-                    }
-                }
-            });
-
-            done();
-        });
-    });
-
-
 });

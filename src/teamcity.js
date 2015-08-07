@@ -107,13 +107,13 @@ internals.Reporter.prototype.closePreviousTestSuiteIfNecessary = function(path) 
 
     var lastStackedSuite = this.suitesStack[this.suitesStack.length - 1],
         currentStackedSuite = new StackedSuite(path),
-        shouldClose = (this.suitesStack.length !== 0 &&
+        shouldClose = (this.suitesStack.length > 0 &&
                         lastStackedSuite.id !== currentStackedSuite.id &&
                         currentStackedSuite.level <= lastStackedSuite.level);
 
     if (shouldClose) {
 
-        while (lastStackedSuite.level >= currentStackedSuite.level) {
+        while (lastStackedSuite && lastStackedSuite.level >= currentStackedSuite.level) {
 
             this.log('testSuiteFinished', { name: this.buildSuiteTitle(this.suitesStack.pop().path) });
 
@@ -161,7 +161,7 @@ internals.Reporter.prototype.log = function(message, args) {
  * @returns {*}
  */
 internals.Reporter.prototype.buildSuiteTitle = function(path) {
-
+    
     if (this.settings.nestedSuiteTitle) {
 
         return path
@@ -172,7 +172,7 @@ internals.Reporter.prototype.buildSuiteTitle = function(path) {
 
     } else {
 
-        return (path.length > 0) ? path[path.length - 1] : '';
+        return path[path.length - 1];
     }
 };
 

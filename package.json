@@ -15,7 +15,8 @@
     "hapijs",
     "teamcity",
     "reporter",
-    "test"
+    "test",
+    "integration"
   ],
   "author": "Alexander I. Antipin",
   "license": "MIT",

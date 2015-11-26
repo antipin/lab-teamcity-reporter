@@ -28,7 +28,7 @@
     "teamcity-service-messages": "^0.1.6"
   },
   "devDependencies": {
-    "code": "^1.5.0",
-    "lab": "^6.1.0"
+    "code": "^2.0.1",
+    "lab": "^7.3.0"
   }
 }

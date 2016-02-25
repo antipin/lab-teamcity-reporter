@@ -2,8 +2,8 @@
 
 [![npm](https://img.shields.io/npm/v/lab-teamcity-reporter.svg)](https://www.npmjs.com/package/lab-teamcity-reporter)
 [![Build status](https://img.shields.io/travis/antipin/lab-teamcity-reporter/master.svg)](https://travis-ci.org/antipin/lab-teamcity-reporter)
-[![David](https://img.shields.io/david/antipin/lab-teamcity-reporter.svg)]()
-[![David](https://img.shields.io/david/dev/antipin/lab-teamcity-reporter.svg)]()
+[![David](https://img.shields.io/david/antipin/lab-teamcity-reporter.svg)](https://david-dm.org/antipin/lab-teamcity-reporter)
+[![David](https://img.shields.io/david/dev/antipin/lab-teamcity-reporter.svg)](https://david-dm.org/antipin/lab-teamcity-reporter/#info=devDependencies&view=table)
 
 [lab](https://github.com/hapijs/lab) and [TeamCity](https://www.jetbrains.com/teamcity/) are [hapi](https://github.com/hapijs/hapi) together.
 

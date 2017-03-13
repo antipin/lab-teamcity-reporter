@@ -62,6 +62,11 @@ internals.Reporter.prototype.end = function (notebook) {
 
         this.log('testSuiteFinished', { name: this.buildSuiteTitle(suitesStack.path) });
     }
+
+    if (notebook.coverage) {
+        this.log('buildStatisticValue', { key: 'CodeCoverageAbsLTotal', value: notebook.coverage.sloc });
+        this.log('buildStatisticValue', { key: 'CodeCoverageAbsLCovered', value: notebook.coverage.hits });
+    }
 };
 
 /**

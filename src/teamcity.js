@@ -64,8 +64,10 @@ internals.Reporter.prototype.end = function (notebook) {
     }
 
     if (notebook.coverage) {
+
         this.log('buildStatisticValue', { key: 'CodeCoverageAbsLTotal', value: notebook.coverage.sloc });
         this.log('buildStatisticValue', { key: 'CodeCoverageAbsLCovered', value: notebook.coverage.hits });
+
     }
 };
 

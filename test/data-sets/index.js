@@ -1,21 +1,20 @@
 var TAGS = {
     'structure': 'structure',
-    'settings':  'settings',
     'message':   'messages'
 };
 
 exports.dataSets = [
     {
         file: '1-level-nested.js',
-        tags: [ TAGS.structure, TAGS.settings ]
+        tags: [ TAGS.structure ]
     },
     {
         file: 'deeply-nested.js',
-        tags: [ TAGS.structure, TAGS.settings ]
+        tags: [ TAGS.structure ]
     },
     {
         file: 'flat.js',
-        tags: [ TAGS.structure, TAGS.settings ]
+        tags: [ TAGS.structure ]
     },
     {
         file: 'with-fails.js',

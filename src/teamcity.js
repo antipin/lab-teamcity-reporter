@@ -1,5 +1,4 @@
 var tsm = require('teamcity-service-messages'),
-    DEFAULT_SUITE_TITLE_DELIMITER = ' -> ',
     internals = {};
 
 /**
@@ -9,8 +8,6 @@ var tsm = require('teamcity-service-messages'),
 exports = module.exports = internals.Reporter = function (options) {
 
     this.settings = options;
-    this.settings.suiteTitleDelimiter = this.settings.suiteTitleDelimiter || DEFAULT_SUITE_TITLE_DELIMITER;
-    this.settings.nestedSuiteTitle = this.settings.nestedSuiteTitle || false;
 };
 
 /**
@@ -161,19 +158,9 @@ internals.Reporter.prototype.log = function(message, args) {
  * @returns {*}
  */
 internals.Reporter.prototype.buildSuiteTitle = function(path) {
-    
-    if (this.settings.nestedSuiteTitle) {
 
-        return path
-            .filter(function(title) {
-                return !!title;
-            })
-            .join(this.settings.suiteTitleDelimiter);
+    return path[path.length - 1];
 
-    } else {
-
-        return path[path.length - 1];
-    }
 };
 
 /**

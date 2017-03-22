@@ -6,7 +6,11 @@ function renderOptions(options) {
 
     return Object
         .keys(options)
-        .map((optionName) => `--${optionName} ${options[optionName]}`)
+        .map((optionName) => {
+
+            var value = options[optionName];
+            return value === true ? `--${optionName}` : `--${optionName} ${value}`
+        })
         .join(' ')
 
 }

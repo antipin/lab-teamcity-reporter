@@ -6,23 +6,23 @@ var TAGS = {
 
 exports.dataSets = [
     {
-        file: '1-level-nested',
+        file: '1-level-nested.js',
         tags: [ TAGS.structure, TAGS.settings ]
     },
     {
-        file: 'deeply-nested',
+        file: 'deeply-nested.js',
         tags: [ TAGS.structure, TAGS.settings ]
     },
     {
-        file: 'flat',
+        file: 'flat.js',
         tags: [ TAGS.structure, TAGS.settings ]
     },
     {
-        file: 'with-fails',
+        file: 'with-fails.js',
         tags: [ TAGS.message ]
     },
     {
-        file: 'with-no-todo',
+        file: 'with-no-todo.js',
         tags: [ TAGS.message ]
     }
 ];

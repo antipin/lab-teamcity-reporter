@@ -4,7 +4,7 @@
   "description": "Lab reporter for TeamCity",
   "main": "/src/teamcity.js",
   "scripts": {
-    "test": "node ./bin/_lab.js --coverage --verbose --flat --timeout 3000"
+    "test": "node ./node_modules/.bin/lab --coverage --verbose --flat --timeout 3000"
   },
   "repository": {
     "type": "git",
@@ -28,7 +28,7 @@
     "teamcity-service-messages": "^0.1.6"
   },
   "devDependencies": {
-    "code": "^2.0.1",
-    "lab": "^10.0.0"
+    "code": "4.0.0",
+    "lab": "13.0.1"
   }
 }

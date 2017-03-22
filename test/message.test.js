@@ -1,7 +1,6 @@
 var Lab       = require('lab'),
-    _Lab      = require('../test_runner/lib'),
     Code      = require('code'),
-    lab       = exports.lab = _Lab.script(),
+    lab       = exports.lab = Lab.script(),
 
     describe  = lab.describe,
     before    = lab.before,
@@ -15,8 +14,11 @@ var Lab       = require('lab'),
 describe('Report messages', function() {
 
     before(function(done) {
-        utils.getReport(require('./data-sets/with-fails').lab, function(result) {
-            reportRaw = result.raw;
+        utils.getReport('./data-sets/with-fails.js', function(err, result) {
+
+            if (err) throw err;
+
+            reportRaw = result.rawStdout;
             reportMessages = result.messages;
             done();
         });
@@ -95,8 +97,11 @@ describe('Report messages', function() {
 describe('Report skipped messages', function() {
 
     before(function(done) {
-        utils.getReport(require('./data-sets/with-no-todo').lab, { dry: true }, function(result) {
-            reportRaw = result.raw;
+        utils.getReport('./data-sets/with-no-todo.js', { dry: true }, function(err, result) {
+
+            if (err) throw err;
+
+            reportRaw = result.rawStdout;
             reportMessages = result.messages;
             done();
         });

@@ -1,7 +1,6 @@
 var Lab       = require('lab'),
-    _Lab      = require('../test_runner/lib'),
     Code      = require('code'),
-    lab       = exports.lab = _Lab.script(),
+    lab       = exports.lab = Lab.script(),
 
     describe  = lab.describe,
     before    = lab.before,
@@ -22,14 +21,18 @@ dataSets .forEach(function(dataSet) {
         describe('Data set: `' + dataSet.name + '`.', function() {
 
             before(function(done) {
-                utils.getReport(require(dataSet.path).lab, function(result) {
-                    reportRaw = result.raw;
+                utils.getReport(dataSet.path, function(err, result) {
+
+                    if (err) throw err;
+
+                    reportRaw = result.rawStdout;
                     reportMessages = result.messages;
                     done();
                 });
             });
 
             it('report should be a string and not be empty', function(done) {
+
                 expect(reportRaw).to.be.a.string().and.not.to.be.empty();
                 done();
             });

@@ -1,4 +1,15 @@
-var Lab = require('lab');
+var fs = require('fs');
+var path = require('path');
+var childProcess = require('child_process');
+
+function renderOptions(options) {
+
+    return Object
+        .keys(options)
+        .map((optionName) => `--${optionName} ${options[optionName]}`)
+        .join(' ')
+
+}
 
 /**
  *
@@ -6,26 +17,38 @@ var Lab = require('lab');
  * @param {Object} [settings]
  * @param {Function} callback
  */
-exports.getReport = function prepareScript(script, settings, callback) {
+exports.getReport = function prepareScript(testFilePath, options, callback) {
 
-    callback = (typeof settings === 'function') ? settings : callback;
-    settings = (typeof settings === 'function') ? {} : settings;
+    callback = (typeof options === 'function') ? options : callback;
+    options = (typeof options === 'function') ? {} : options;
 
-    settings.reporter = './src/teamcity.js';
+    options.reporter = './src/teamcity';
 
-    Lab.report(script, settings, function (err, code, output) {
+    var filePathFull = path.resolve(__dirname, '../../node_modules/.bin/lab')
+    var fullTestFilePath = path.resolve(__dirname, '../', testFilePath)
 
-        if (err) throw err;
+    fs.access(fullTestFilePath, function(err) {
 
-        var messages = output.split('\n').filter(function(message) {
-            return (message.length > 0);
+        if (err) {
+
+            return callback(err)
+
+        }
+
+        childProcess.exec(`${filePathFull} ${renderOptions(options)} ${fullTestFilePath}`, function (err, stdout, stderr) {
+
+            callback(null, {
+                rawStdout: stdout.toString(),
+                messages: stdout.toString()
+                    .split('\n')
+                    .filter(line => line !== '')
+            })
+
         });
 
-        callback({
-            raw: output,
-            messages: messages
-        });
-    });
+
+    })
+
 };
 
 /**

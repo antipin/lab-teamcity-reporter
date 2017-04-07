@@ -94,9 +94,13 @@ internals.Reporter.prototype.openNewTestSuiteIfNecessary = function(path) {
 
     if (this.suitesStack.length === 0 || lastStackedSuite.id !== currentStackedSuite.id) {
 
-        this.log('testSuiteStarted', { name: this.buildSuiteTitle(path) });
+        for (var i = 0; i < path.length; i++) {
+            if (lastStackedSuite && lastStackedSuite.path[i] === path[i])
+                continue;
 
-        this.suitesStack.push(currentStackedSuite);
+            this.log('testSuiteStarted', { name: path[i] });
+            this.suitesStack.push(new StackedSuite(path.slice(0, i + 1)));
+        }
     }
 
     return this;
@@ -110,19 +114,13 @@ internals.Reporter.prototype.openNewTestSuiteIfNecessary = function(path) {
 internals.Reporter.prototype.closePreviousTestSuiteIfNecessary = function(path) {
 
     var lastStackedSuite = this.suitesStack[this.suitesStack.length - 1],
-        currentStackedSuite = new StackedSuite(path),
-        shouldClose = (this.suitesStack.length > 0 &&
-                        lastStackedSuite.id !== currentStackedSuite.id &&
-                        currentStackedSuite.level <= lastStackedSuite.level);
+        currentStackedSuite = new StackedSuite(path);
 
-    if (shouldClose) {
+    while (lastStackedSuite && !currentStackedSuite.isChildOf(lastStackedSuite)) {
 
-        while (lastStackedSuite && lastStackedSuite.level >= currentStackedSuite.level) {
+        this.log('testSuiteFinished', { name: this.buildSuiteTitle(this.suitesStack.pop().path) });
 
-            this.log('testSuiteFinished', { name: this.buildSuiteTitle(this.suitesStack.pop().path) });
-
-            lastStackedSuite = this.suitesStack[this.suitesStack.length - 1];
-        }
+        lastStackedSuite = this.suitesStack[this.suitesStack.length - 1];
     }
 
     return this;
@@ -179,4 +177,15 @@ var StackedSuite = function(path) {
     this.path = path.slice(0);
     this.id = this.path.toString();
     this.level = this.path.length;
+};
+
+StackedSuite.prototype.isChildOf = function(other) {
+    if (this.level < other.level)
+        return false;
+
+    for (var i=0; i < other.path.length; i++)
+        if (other.path[i] !== this.path[i])
+            return false;
+
+    return true;
 };
